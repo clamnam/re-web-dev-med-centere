@@ -22,6 +22,7 @@ let dobError = document.getElementById('dob_error');
 let centreError = document.getElementById('centre_error');
 let insuranceError = document.getElementsByClassName('insurance_error');
 let preferenceError = document.getElementsByClassName('preference_error');
+submitBtn.addEventListener('click', onSubmitForm);
 
 /**
  * Regex
@@ -35,7 +36,7 @@ const TEXT_REGEX = /^[a-zA-Z-' ]*$/;
 const TEXTNUM_REGEX = /^[0-9a-zA-Z-', ]*$/;
 
 
-submitBtn.addEventListener('click', onSubmitForm);
+
 
 let errorExists = false;
 
@@ -64,15 +65,15 @@ function resetValues() {
 	phoneError.innerHTML = "";
 	emailError.innerHTML = "";
 	dobError.innerHTML = "";
-	or.innerHTML = "";
+	centreError.innerHTML = "";
 	insuranceError.innerHTML = "";
 	preferenceError.innerHTML = "";
 	errorExists = false;
 }
 
 function onSubmitForm(evt) {
+    resetValues();
 
-	evt.preventDefault();
 	/*
 	 *Validate Name
 	 */
@@ -85,9 +86,9 @@ function onSubmitForm(evt) {
 	 *Validate address
 	 */
 	if (addressInput.value === "") {
-		showError(nameError, "The name field is required. js");
+		showError(addressError, "The address field is required. js");
 	} else if (!regexValid(ADDRESS_REGEX, addressInput.value)) {
-		showError(addressError, "only letters, numbers and spaces are allowed. js");
+		showError(addressError, "invalid format. js");
 	}
 
 	/*
@@ -103,36 +104,36 @@ function onSubmitForm(evt) {
 	 *Validate email
 	 */
 	if (emailInput.value === "") {
-		showError(emailError, "The email field is required");
+		showError(emailError, "The email field is requiredjs");
 	} else if (!regexValid(EMAIL_REGEX, emailInput.value)) {
-		showError(emailError, "only letters and spaces are allowed.");
+		showError(emailError, "only letters and spaces are allowed.js");
 	}
 
 	/*
 	 *Validate dob
 	 */
 	if (dobInput.value === "") {
-		showError(dobError, "The date of birth field is required");
+		showError(dobError, "The date of birth field is requiredjs");
 	} else if (!regexValid(DATE_REGEX, dobInput.value)) {
-		showError(dobError, "only letters and spaces are allowed.");
+		showError(dobError, "only letters and spaces are allowed.js");
 	}
 
 	/*
 	 *Validate centre
 	 */
 	if (centreInput.value === "") {
-		showError(centreError, "The centre field is required");
+		showError(centreError, "The centre field is requiredjs");
 	} else if (!regexValid(TEXTNUM_REGEX, centreInput.value)) {
-		showError(centreError, "only letters and spaces are allowed.js");
+		showError(centreError, "only letters and spaces are allowed.jsjs");
 	}
 	/*
 	 *Validate insurance
 	 */
 
 	if (!isSelected(insuranceInput)) {
-		showError(insuranceError, "The insurance field is required.");
+		showError(insuranceError, "The insurance field is required.js");
 	} else if (!regexValid(TEXT_REGEX, insuranceInput.value)) {
-		showError(insuranceError, "only letters and spaces are allowed.");
+		showError(insuranceError, "only letters and spaces are allowed.js");
 	}
 	/*
 	 *Validate preference
@@ -147,3 +148,4 @@ function onSubmitForm(evt) {
 		evt.preventDefault();
 	}
 }
+
