@@ -35,7 +35,7 @@ const TEXT_REGEX = /^[a-zA-Z-' ]*$/;
 const TEXTNUM_REGEX = /^[0-9a-zA-Z-', ]*$/;
 
 
-submitBtn.addEventListener("click", onSubmitForm);
+submitBtn.addEventListener('click', onSubmitForm);
 
 let errorExists = false;
 
@@ -71,31 +71,32 @@ function resetValues() {
 }
 
 function onSubmitForm(evt) {
-	resetValues();
+
+	evt.preventDefault();
 	/*
 	 *Validate Name
 	 */
 	if (nameInput.value === "") {
-		nameError.innerHTML = "The name field is required.";
+		showError(nameError, "The name field is required. js");
 	} else if (!regexValid(NAME_REGEX, nameInput.value)) {
-		showError(nameError,"only letters and spaces are allowed.");
+		showError(nameError,"only letters and spaces are allowed. js");
 	}
 	/*
 	 *Validate address
 	 */
 	if (addressInput.value === "") {
-		addressError.innerHTML = "The address field is required.";
+		showError(nameError, "The name field is required. js");
 	} else if (!regexValid(ADDRESS_REGEX, addressInput.value)) {
-		showError(addressError, "only letters, numbers and spaces are allowed.");
+		showError(addressError, "only letters, numbers and spaces are allowed. js");
 	}
 
 	/*
 	 *Validate phone
 	 */
 	if (phoneInput.value === "") {
-		showError(phoneError, "The phone field is required");
+		showError(phoneError, "The phone field is required js");
 	} else if (!regexValid(PHONE_REGEX, phoneInput.value)) {
-		showError(phoneError, "invalid format.");
+		showError(phoneError, "invalid format. js");
 	}
 
 	/*
@@ -137,9 +138,9 @@ function onSubmitForm(evt) {
 	 *Validate preference
 	 */
 	if (!isSelected(preferenceInput)) {
-		showError(preferenceError, "The preference field is required.");
+		showError(preferenceError, "The preference field is required. js");
 	} else if (!regexValid(TEXT_REGEX, preferenceInput.value)) {
-		showError(preferenceError, "only letters and spaces are allowed.");
+		showError(preferenceError, "only letters and spaces are allowed. js");
 	}
 
 	if (errorExists) {

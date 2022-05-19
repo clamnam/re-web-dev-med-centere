@@ -61,7 +61,6 @@ $connection = null;
                 // 
                 foreach($centres as $centre){
                     echo "<tr>";
-                    echo "<td><input type='radio' name='id' value=".$centre['id']."></td>";
                     echo "<td><a href='centre_view.php?id=".$centre['id']."'>".$centre['title']."</a></td>";
                     echo "<td>".$centre['address']."</td>";
                     echo "<td>".$centre['phone']."</td>";

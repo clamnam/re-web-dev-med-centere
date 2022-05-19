@@ -59,7 +59,7 @@ $connection = null;
                 <?php
             foreach($patient as $patient){
                 echo "<tr>";
-                echo "<td><input type='radio' name='id' value=".$patient['id']."></td>";
+                echo "<td><input type='radio' name='id' value=".$patient["id"]."></td>";
                 echo "<td><a href='patient_view.php?id=".$patient['id']."'>".$patient['name']."</a></td>";
                 echo "<td>".$patient['address']."</td>";
                 echo "<td>".$patient['phone']."</td>";
