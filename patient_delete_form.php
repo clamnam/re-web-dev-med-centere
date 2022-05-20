@@ -89,7 +89,7 @@ try{
 
             <label for="centre" class="label">Medical centre</label>
             <div class="wide">
-                <select name="centre" id="" disabled>
+                <select name="centre" id="centre" disabled>
                     <?php
                     foreach($centres as $centre){
                         echo $centre['id'];
@@ -104,7 +104,7 @@ try{
                     ?>
                 </select>
             </div>
-            <div class="error"><?php if(isset($errors["centre"])) echo $errors["centre"]?></div>
+            <div id="centre_error" class="error"><?php if(isset($errors["centre"])) echo $errors["centre"]?></div>
 
             <label for="insurance" class="label">Insurance</label>
             <div class="wide">

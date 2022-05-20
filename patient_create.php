@@ -17,10 +17,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         [$patient, $errors] = patient_validate($_POST);
 
         if (empty($errors)){
+            echo "pre>\$patient = ";
+            print_r($patient);
+            echo "</pre>";
 
-
-        
-    
+            echo "pre>\$errors = ";
+            print_r($errors);
+            echo "</pre>";
     try {
         $centre = intval($_POST['centre']);
         $preferences = implode(',',$patient['preferences']);

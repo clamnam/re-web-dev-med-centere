@@ -1,7 +1,7 @@
 /**
  * Get input fields
  */
-let submitBtn = document.getElementById('submit_btn');
+let submitBtn = document.getElementById('submit_btn')
 let nameInput = document.getElementById('name');
 let addressInput = document.getElementById('address');
 let phoneInput = document.getElementById('phone');
@@ -68,15 +68,13 @@ function resetValues() {
 	centreError.innerHTML = "";
 	insuranceError.innerHTML = "";
 	preferenceError.innerHTML = "";
-	errorExists = false;
+	
 }
 
 function onSubmitForm(evt) {
-    resetValues();
-
-	/*
-	 *Validate Name
-	 */
+	resetValues();
+	
+	submitBtn.addEventListener('click', onSubmitForm);
 	if (nameInput.value === "") {
 		showError(nameError, "The name field is required. js");
 	} else if (!regexValid(NAME_REGEX, nameInput.value)) {
