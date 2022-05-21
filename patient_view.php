@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <title>ABC HealthCare</title>
 </head>
+
 <body class="container flex flex-column">
     <header class="header"></header>
 
@@ -23,7 +25,7 @@
 
     <main class="main">
         <h1 class="mt-1 mb-1">Alan McFadden</h1>
-            
+
         <table class="table">
             <tbody>
                 <tr>
@@ -76,4 +78,5 @@
         <p>&copy; 2022, all rights reserved.</p>
     </footer>
 </body>
+
 </html>

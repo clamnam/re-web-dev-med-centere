@@ -1,25 +1,23 @@
-<?php 
+<?php
 require_once "include/database_connection.php";
 
-try
-{
+try {
     $sql = 'SELECT * FROM patient';
     $stmt = $connection->prepare($sql);
     $success = $stmt->execute();
-    if(!$success) {
-    throw new Exception("Failed to retrieve patient");
-}
-else{
-$patient = $stmt->fetchAll();
-}
-}
-catch(PDOException $e) {
-echo "Error: " . $e->getMessage();
+    if (!$success) {
+        throw new Exception("Failed to retrieve patient");
+    } else {
+        $patient = $stmt->fetchAll();
+    }
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
 }
 $connection = null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +26,7 @@ $connection = null;
     <link rel="stylesheet" href="styles/main.css">
     <title>ABC HealthCare</title>
 </head>
+
 <body class="container flex flex-column">
     <header class="header"></header>
 
@@ -44,7 +43,7 @@ $connection = null;
     <main class="main">
         <form method="post">
             <h1 class="mt-1 mb-1">List of patients</h1>
-                
+
             <table class="table">
                 <thead>
                     <tr>
@@ -56,17 +55,17 @@ $connection = null;
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-            foreach($patient as $patient){
-                echo "<tr>";
-                echo "<td><input type='radio' name='id' value=".$patient["id"]."></td>";
-                echo "<td><a href='patient_view.php?id=".$patient['id']."'>".$patient['name']."</a></td>";
-                echo "<td>".$patient['address']."</td>";
-                echo "<td>".$patient['phone']."</td>";
-                echo "<td>".$patient['email']."</td>";
-                echo "</td>";
-            }
-            ?>
+                    <?php
+                    foreach ($patient as $patient) {
+                        echo "<tr>";
+                        echo "<td><input type='radio' name='id' value=" . $patient["id"] . "></td>";
+                        echo "<td><a href='patient_view.php?id=" . $patient['id'] . "'>" . $patient['name'] . "</a></td>";
+                        echo "<td>" . $patient['address'] . "</td>";
+                        echo "<td>" . $patient['phone'] . "</td>";
+                        echo "<td>" . $patient['email'] . "</td>";
+                        echo "</td>";
+                    }
+                    ?>
                 </tbody>
             </table>
             <div class="mt-1 buttons">
@@ -81,4 +80,5 @@ $connection = null;
         <p>&copy; 2022, all rights reserved.</p>
     </footer>
 </body>
+
 </html>

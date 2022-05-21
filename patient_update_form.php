@@ -1,45 +1,41 @@
-<?php 
+<?php
 session_start();
 
-if (isset($_SESSION["data"]) and isset ($_SESSION["errors"])){
+if (isset($_SESSION["data"]) and isset($_SESSION["errors"])) {
     $data = $_SESSION["data"];
     $errors = $_SESSION["errors"];
-}else{
+} else {
     require_once "include/database_connection.php";
 
-    try{
-       $params = array(
-        'id' => $_POST['id']
-    );
+    try {
+        $params = array(
+            'id' => $_POST['id']
+        );
 
-    $sql = 'SELECT * FROM patient WHERE id = :id';
+        $sql = 'SELECT * FROM patient WHERE id = :id';
 
         $stmt = $connection->prepare($sql);
         $success = $stmt->execute($params);
-        if(!$success){
+        if (!$success) {
             throw new Exception("Failed to retrieve patient");
-        }
-        else{
+        } else {
             $data = $stmt->fetch();
-            $data["preferences"] = explode("'",$data["preferences"]);
+            $data["preferences"] = explode("'", $data["preferences"]);
         }
-    }
-    catch(PDOException $e){
+    } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 
-    try{
-       $sql = 'SELECT * FROM medical_centre';
-       $stmt = $connection->prepare($sql);
-       $success = $stmt->execute();
-       if(!$success){
-           throw new Exception("Failed to retrieve centres");
-       }else{
-           $centres = $stmt->fetchAll();
-
-       }
-    }
-    catch(PDOException $e){
+    try {
+        $sql = 'SELECT * FROM medical_centre';
+        $stmt = $connection->prepare($sql);
+        $success = $stmt->execute();
+        if (!$success) {
+            throw new Exception("Failed to retrieve centres");
+        } else {
+            $centres = $stmt->fetchAll();
+        }
+    } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
     $connection = null;
@@ -54,6 +50,7 @@ echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -62,6 +59,7 @@ echo "</pre>";
     <link rel="stylesheet" href="styles/main.css">
     <title>ABC HealthCare</title>
 </head>
+
 <body class="container flex flex-column">
     <header class="header"></header>
 
@@ -76,93 +74,92 @@ echo "</pre>";
     </nav>
 
     <main class="main">
-    <form method="post" class="form">
+        <form method="post" class="form">
             <h1 class="heading mb-1">Updating existing patient</h1>
 
             <label for="name" class="label">Name</label>
-            <input id="name" type="text" name="name" class="narrow" value="<?php if(isset($data["name"])) echo $data["name"]?>">
-            <div class="error"><?php if(isset($errors["name"])) echo $errors["name"]?> </div>
+            <input id="name" type="text" name="name" class="narrow" value="<?php if (isset($data["name"])) echo $data["name"] ?>">
+            <div id="name_error" class="error"> <?php if (isset($errors["name"])) echo $errors["name"]; ?></div>
 
             <label for="address" class="label">Address</label>
-            <input id="address" type="text" name="address" class="wide" value="<?php if(isset($data["address"])) echo $data["address"]?>">
-            <div class="error"><?php if(isset($errors["address"])) echo $errors["address"]?></div>
+            <input id="address" type="text" name="address" class="wide" value="<?php if (isset($data["address"])) echo $data["address"] ?>">
+            <div id="address_error" class="error"> <?php if (isset($errors["address"])) echo $errors["address"]; ?></div>
 
             <label for="phone" class="label">Phone</label>
-            <input id="phone" type="tel" name="phone" class="narrow" value="<?php if(isset($data["phone"])) echo $data["phone"]?>">
-            <div class="error"><?php if(isset($errors["phone"])) echo $errors["phone"]?></div>
+            <input id="phone" type="tel" name="phone" class="narrow" value="<?php if (isset($data["phone"])) echo $data["phone"] ?>">
+            <div id="phone_error" class="error"> <?php if (isset($errors["phone"])) echo $errors["phone"]; ?></div>
 
             <label for="email" class="label">Email</label>
-            <input id="email" type="email" name="email" class="wide" value="<?php if(isset($data["email"])) echo $data["email"]?>">
-            <div class="error"><?php if(isset($errors["email"])) echo $errors["email"]?></div>
+            <input id="email" type="email" name="email" class="wide" value="<?php if (isset($data["email"])) echo $data["email"] ?>">
+            <div id="email_error" class="error"> <?php if (isset($errors["email"])) echo $errors["email"]; ?></div>
 
             <label for="dob" class="label">Date of birth</label>
-            <input id="dob" type="date" name="dob" class="narrow" value="<?php if(isset($data["dob"])) echo $data["dob"]?>">
-            <div class="error"><?php if(isset($errors["dob"])) echo $errors["dob"]?></div>
+            <input id="dob" type="date" name="dob" class="narrow" value="<?php if (isset($data["dob"])) echo $data["dob"] ?>">
+            <div id="dob_error" class="error"> <?php if (isset($errors["dob"])) echo $errors["dob"]; ?></div>
 
             <label for="centre" class="label">Medical centre</label>
             <div class="wide">
-                <select name="centre" id="centre" >
+                <select name="centre" id="centre">
                     <?php
-                    foreach($centres as $centre){
-                        echo $centre['id'];
+                    foreach ($centres as $centre) {
 
-                        echo "<option value='".$centre['id']."'";
-                        if (isset($data["centre"])&& $data["centre"] == $centre['id']) echo "selected";
+                        //could not debug error that made the centre drop down lose values on unsuccessful submit 
+                        echo "<option value='" . $centre['id'] . "'";
+                        if (isset($data["centre"]) && $data["centre"] == $centre['id']) echo "selected";
 
-                        echo ">";
-                        echo $centre['title'];
-                        echo"</option>";
+                        echo ">" . $centre['title'] . "</option>";
                     }
                     ?>
                 </select>
             </div>
-            <div class="error"><?php if(isset($errors["centre"])) echo $errors["centre"]?></div>
+            <div id="centre_error"><?php if (isset($errors["centre"])) echo $errors["centre"] ?></div>
 
             <label for="insurance" class="label">Insurance</label>
             <div class="wide">
-                <input id="insure-none" type="radio" name="insurance" value="None" 
-                <?php if(isset($data["insurance"]) && $data["insurance"] === "None") echo "checked"; ?>>
+                <input id="insure-none" type="radio" name="insurance" value="None" <?php if (isset($data["insurance"]) && $data["insurance"] === "None") echo "checked"; ?>>
                 <label for="insure-none">None</label>
-                <input id="insure-vhi" type="radio" name="insurance" value="VHI" 
-                <?php if(isset($data["insurance"]) && $data["insurance"] === "VHI") echo "checked"; ?>>
+
+                <input id="insure-vhi" type="radio" name="insurance" value="VHI" <?php if (isset($data["insurance"]) && $data["insurance"] === "VHI") echo "checked"; ?>>
                 <label for="insure-vhi">VHI</label>
-                <input id="insure-laya" type="radio" name="insurance" value="Laya" 
-                <?php if(isset($data["insurance"]) && $data["insurance"] === "Laya") echo "checked"; ?>>
+
+                <input id="insure-laya" type="radio" name="insurance" value="Laya" <?php if (isset($data["insurance"]) && $data["insurance"] === "Laya") echo "checked"; ?>>
                 <label for="insure-laya">Laya</label>
-                <input id="insure-irish-life" type="radio" name="insurance" value="Irish Life" 
-                <?php if(isset($data["insurance"]) && $data["insurance"] === "Irish Life") echo "checked"; ?>>
+
+                <input id="insure-irish-life" type="radio" name="insurance" value="Irish Life" <?php if (isset($data["insurance"]) && $data["insurance"] === "Irish Life") echo "checked"; ?>>
                 <label for="insure-irish-life">Irish Life</label>
             </div>
-            <div class="error"><?php if(isset($errors["insurance"])) echo $errors["insurance"]?></div>
+            <div id="insurance_error" class="error"> <?php if (isset($errors["insurance"])) echo $errors["insurance"]; ?></div>
 
-                    
+
             <label for="preferences" class="label">Communication preferences</label>
             <div class="wide">
-                <input id="pref-email" type="checkbox" name="preferences[]" value="Email"
-                <?php if(isset($data["preferences"]) && in_array("Email", $data["preferences"])) echo "checked"; ?>>
+                <input class="preference" id="pref-email" type="checkbox" name="preferences[]" value="Email" <?php if (isset($data["preferences"]) && in_array("email", $data["preferences"])) echo "checked"; ?>>
                 <label for="pref-email">Email</label>
-                <input id="pref-phone" type="checkbox" name="preferences[]" value="Phone" 
-                <?php if(isset($data["preferences"]) && in_array("Phone", $data["preferences"])) echo "checked"; ?>>
+                <input class="preference" id="pref-phone" type="checkbox" name="preferences[]" value="Phone" <?php if (isset($data["preferences"]) && in_array("Phone", $data["preferences"])) echo "checked"; ?>>
                 <label for="pref-phone">Phone</label>
-                <input id="pref-post" type="checkbox" name="preferences[]" value="Post" 
-                <?php if(isset($data["preferences"]) && in_array("Post", $data["preferences"])) echo "checked"; ?>                <label for="pref-post">Post</label>
+                <input class="preference" id="pref-post" type="checkbox" name="preferences[]" value="Post" <?php if (isset($data["preferences"]) && in_array("post", $data["preferences"])) echo "checked"; ?>>
+                <label for="pref-post">Post</label>
             </div>
-            <div class="error"><?php if(isset($errors["preferences"])) echo $errors["preferences"]?></div>
+            <div id="preferences_error" class="error"> <?php if (isset($errors["preferences"])) echo $errors["preferences"]; ?></div>
 
             <div class="buttons">
-                <button class="button primary" type="submit" formaction="patient_update.php">update</button>
+                <button id="submit_btn" class="button primary" type="submit" formaction="patient_update.php">Update</button>
                 <a class="button light" href="patient_view_all.php">Cancel</a>
             </div>
         </form>
     </main>
 
+    <script src="js/patient_validate.js"></script>
+
     <footer class="footer">
         <p>&copy; 2022, all rights reserved.</p>
     </footer>
 </body>
+
 </html>
 <?php
-if (isset($_SESSION["data"]) and isset ($_SESSION["errors"])){
+
+if (isset($_SESSION["data"]) and isset($_SESSION["errors"])) {
     unset($_SESSION["data"]);
     unset($_SESSION["errors"]);
 }

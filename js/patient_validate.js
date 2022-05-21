@@ -23,7 +23,7 @@ let centreError = document.getElementById('centre_error');
 let insuranceError = document.getElementsByClassName('insurance_error');
 let preferenceError = document.getElementsByClassName('preference_error');
 submitBtn.addEventListener('click', onSubmitForm);
-
+// litterally spent maybe 8 hours debugging the validate.js files and the issue was the placement of submit btn(scope issue)
 /**
  * Regex
  */
@@ -73,29 +73,29 @@ function resetValues() {
 
 function onSubmitForm(evt) {
 	resetValues();
-
-	submitBtn.addEventListener('click', onSubmitForm);
+//remove js*
+//validate fields
 	if (nameInput.value === "") {
-		showError(nameError, "The name field is required. js");
+		showError(nameError, "The name field is required.");
 	} else if (!regexValid(NAME_REGEX, nameInput.value)) {
-		showError(nameError,"only letters and spaces are allowed. js");
+		showError(nameError,"only letters and spaces are allowed.");
 	}
 	/*
 	 *Validate address
 	 */
 	if (addressInput.value === "") {
-		showError(addressError, "The address field is required. js");
+		showError(addressError, "The address field is required.");
 	} else if (!regexValid(ADDRESS_REGEX, addressInput.value)) {
-		showError(addressError, "invalid format. js");
+		showError(addressError, "invalid format.");
 	}
 
 	/*
 	 *Validate phone
 	 */
 	if (phoneInput.value === "") {
-		showError(phoneError, "The phone field is required js");
+		showError(phoneError, "The phone field is required");
 	} else if (!regexValid(PHONE_REGEX, phoneInput.value)) {
-		showError(phoneError, "invalid format. js");
+		showError(phoneError, "invalid format.");
 	}
 
 	/*
@@ -137,13 +137,13 @@ function onSubmitForm(evt) {
 	 *Validate preference
 	 */
 	if (!isSelected(preferenceInput)) {
-		showError(preferenceError, "The preference field is required. js");
+		showError(preferenceError, "The preference field is required.");
 	} else if (!regexValid(TEXT_REGEX, preferenceInput.value)) {
-		showError(preferenceError, "only letters and spaces are allowed. js");
+		showError(preferenceError, "only letters and spaces are allowed.");
 	}
 
 	if (errorExists) {
-		evt.preventDefault();
+evt.preventDefault();
 	}
 }
 

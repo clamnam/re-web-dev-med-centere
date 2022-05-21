@@ -5,6 +5,9 @@ require_once "./include/patient_validate.php";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo "process request!!";
 
+        echo"<pre\$_POST = ";
+        print_r($_POST);
+        echo"</pre>";
 
     [$patient, $errors] = patient_validate($_POST);
 
@@ -19,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         try {
             $centre_id = intval($patient['centre']);
             $preferences = implode(',',$patient['preferences']);
+
             $params = array(
                 'name' => $_POST['name'],
                 'address' => $_POST['address'],
@@ -30,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 'preferences' => $preferences 
             );
             $params["id"] = $_POST['id'];
-
+//found an issue that would not let me submit to the db as the sql didnt match the db, it did im very stumped and i cant solve it
             $sql = "UPDATE patient SET
                             name = :name,
                             address = :address,
@@ -48,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         catch(PDOException $e){
             echo "Error: " . $e->getMessage();
         }
-        header("Location: patient_update_form.php");
+        header("Location: patient_view_all.php");
     
 } else {
         session_start();
@@ -59,4 +63,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 } else {
     http_response_code(405);
 }
-?>
