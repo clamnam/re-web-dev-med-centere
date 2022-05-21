@@ -1,6 +1,6 @@
 <?php
 
-require_once "include\patient_validate.php";
+require_once "include/patient_validate.php";
 require_once "include/database_connection.php";
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -14,18 +14,14 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         print_r($_POST);
         echo "</pre>";
 
+
         [$patient, $errors] = patient_validate($_POST);
 
         if (empty($errors)){
-            echo "pre>\$patient = ";
-            print_r($patient);
-            echo "</pre>";
 
-            echo "pre>\$errors = ";
-            print_r($errors);
-            echo "</pre>";
     try {
         $centre = intval($_POST['centre']);
+        
         $preferences = implode(',',$patient['preferences']);
 
         $params = array(
@@ -40,8 +36,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         );
 
 
-        $sql = "INSERT INTO patient ( name, address, phone, email, dob, centre, insurance, preferences)
-        VALUES ( :name, :address :phone, :email, :dob, :centre, :insurance, :preferences )";
+        $sql = "INSERT INTO patient(name, address, phone, email, dob, centre, insurance, preferences)
+        VALUES (:name, :address :phone, :email, :dob, :centre, :insurance, :preferences)";
 
        $stmt = $connection->prepare($sql);
         $success = $stmt->execute($params);

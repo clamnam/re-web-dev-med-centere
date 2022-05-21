@@ -73,8 +73,8 @@ echo "<pre>\$_data = ";
             <div id="name_error"class="error"> <?php if (isset($errors["name"])) echo $errors["name"]; ?></div>
 
             <label for="address" class="label">address</label>
-            <input id="address" type="text" name="address" class="narrow" value="<?php if (isset($data["address"])) echo $data["address"]; ?>">
-            <div id="address_error"class="error"> <?php if (isset($errors["address"])) echo $errors["address"]; ?></div>
+            <input id="address" type="tel" name="address" class="narrow" value="<?php if (isset($data["address"])) echo $data["address"]; ?>">
+            <div id="address_error" class="error"> <?php if (isset($errors["address"])) echo $errors["address"]; ?></div>
 
             <label for="phone" class="label">Phone</label>
             <input id="phone" type="tel" name="phone" class="narrow" value="<?php if (isset($data["phone"])) echo $data["phone"]; ?>">
@@ -130,15 +130,15 @@ echo "<pre>\$_data = ";
 
             <label for="preferences" class="label">Communication preferences</label>
             <div class="wide">
-                <input class= "preference" id="pref-email" type="checkbox" name="preferences[]" value="Email"
+                <input class="preference" id="pref-email" type="checkbox" name="preferences[]" value="Email"
                     <?php if (isset($data["preferences"]) && in_array("email", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-email">Email</label>
-                <input class= "preference" id="pref-phone" type="checkbox" name="preferences[]" value="Phone"
+                <input class="preference" id="pref-phone" type="checkbox" name="preferences[]" value="Phone"
                      <?php if (isset($data["preferences"]) && in_array("Phone", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-phone">Phone</label>
-                <input class= "preference" id="pref-post" type="checkbox" name="preferences[]" value="Post"
+                <input class="preference" id="pref-post" type="checkbox" name="preferences[]" value="Post"
                      <?php if (isset($data["preferences"]) && in_array("post", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-post">Post</label>

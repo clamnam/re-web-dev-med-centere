@@ -68,12 +68,12 @@ function resetValues() {
 	centreError.innerHTML = "";
 	insuranceError.innerHTML = "";
 	preferenceError.innerHTML = "";
-	
+	errorExists = false;
 }
 
 function onSubmitForm(evt) {
 	resetValues();
-	
+
 	submitBtn.addEventListener('click', onSubmitForm);
 	if (nameInput.value === "") {
 		showError(nameError, "The name field is required. js");
