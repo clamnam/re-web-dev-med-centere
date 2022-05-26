@@ -142,6 +142,8 @@ echo "</pre>";
             </div>
             <div id="preferences_error" class="error"> <?php if (isset($errors["preferences"])) echo $errors["preferences"]; ?></div>
 
+            <input type="hidden" name="id" value="<?php echo $data["id"]?>">
+
             <div class="buttons">
                 <button id="submit_btn" class="button primary" type="submit" formaction="patient_update.php">Update</button>
                 <a class="button light" href="patient_view_all.php">Cancel</a>
@@ -149,7 +151,7 @@ echo "</pre>";
         </form>
     </main>
 
-    <script src="js/patient_validate.js"></script>
+  
 
     <footer class="footer">
         <p>&copy; 2022, all rights reserved.</p>

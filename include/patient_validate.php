@@ -106,7 +106,8 @@ if (empty($data["dob"])) {
 if (empty($data["centre"])) {
     $errors["centre"] = "The centre field is required.";
 }
-//  else {
+ else {
+    $patient["centre"] = sanitize_input($data["centre"]);
 //     $patient["centre"] = sanitize_input($data["centre"]);
 //     // $valid_centres = [
 //     //     "Talbot St Medical Centre",
@@ -119,7 +120,7 @@ if (empty($data["centre"])) {
 //     // if (!in_array($patient["centre"], $valid_centres)) {
 //     //     $errors["centre"] = "Invalid medical centre option";
 //     // }
-// }
+}
 //-----------------------------------------------
 //-Validate-insurance---------------------------------
 //-----------------------------------------------

@@ -19,8 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<pre>\$errors = ";
         print_r($errors);
         echo "</pre>";
+
         try {
-            $centre_id = intval($patient['centre']);
+            $centre = intval($patient['centre']);
             $preferences = implode(',',$patient['preferences']);
 
             $params = array(
@@ -29,19 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 'phone' => $_POST['phone'],
                 'email' => $_POST['email'],
                 'dob' => $_POST['dob'],
-                'centre_id' => $centre_id,
+                'centre' => $centre,
                 'insurance' => $_POST['insurance'],
                 'preferences' => $preferences 
             );
             $params["id"] = $_POST['id'];
-//found an issue that would not let me submit to the db as the sql didnt match the db, it did im very stumped and i cant solve it
             $sql = "UPDATE patient SET
                             name = :name,
                             address = :address,
                             phone = :phone,
                             email = :email,
                             dob = :dob,
-                            centre_id = :centre_id,
+                            centre = :centre,
                             insurance = :insurance,
                             preferences = :preferences
                             WHERE id = :id";

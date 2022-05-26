@@ -12,7 +12,7 @@ try {
     $success = $stmt->execute($params);
 
     if (!$success) {
-        throw new Exception("Failed to retrieve patient with id:" . $centre['centre_id']);
+        throw new Exception("Failed to retrieve patient with id:" . $centre['centre']);
     } else {
         $centre = $stmt->fetch();
     }

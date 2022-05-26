@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 
         $sql = "INSERT INTO patient(name, address, phone, email, dob, centre, insurance, preferences)
-        VALUES (:name, :address :phone, :email, :dob, :centre, :insurance, :preferences)";
+        VALUES (:name, :address, :phone, :email, :dob, :centre, :insurance, :preferences)";
 
        $stmt = $connection->prepare($sql);
         $success = $stmt->execute($params);
